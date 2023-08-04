@@ -17,9 +17,9 @@ function displaySection() {
         <span style="margin: 0 0 0 5px">Scissors</span>
     </div>`;
     let playerDiv = `
-    <div>
+    <div style="display:flex; flex-direction:column; align-items:center">
         <h2>Choose an option</h2>
-        <select style="height: 22px; width: 150px" id="playerInput">
+        <select style="height: 22px; width: 150px; margin: 0 auto;" id="playerInput">
             <option value="paper">Paper</option> 
             <option value="rock">Rock</option> 
             <option value="scissors">Scissors</option>
@@ -28,27 +28,26 @@ function displaySection() {
     `;
 
     let computerDiv = `
-    <div style="margin-left: 20px">
-        <h2>Computer has chosen: </h2>
+    <div style="display:flex; flex-direction:column; align-items:center">
+        <h2>Computer has chosen</h2>
         <input type="text" id="computerInput" readonly value="">
     </div>
     `;
 
     let buttons = `
-    <div>
-        <button type="button" onclick="computerChoice()">Play</button>
-        <button type="button" onclick="restart()">Restart Game</button>
+    <div style="margin: 20px 0; display: flex; justify-content: center; gap: 2rem">
+        <button type="button" id="playButton" style="padding: 5px 20px; border-radius: 10px;border: 2px solid #000; font-weight: 600">Play</button>
+        <button type="button" id="restartButton" style="padding: 5px 20px; border-radius: 10px;border: 2px solid #000; font-weight: 600">Restart Game</button>
     </div>`;
 
     let result = `
-    
-    
-    `
+        <span id="result" style="font-size: 40px; text-align:center;"></span>
+    `;
 
     document.body.appendChild(section);
     section.appendChild(gameInterface);
     
-    gameInterface.innerHTML = head + `<div style= "display:flex; flex-direction: row; justify-content: center;">` + playerDiv + computerDiv + `</div>` + buttons;
+    gameInterface.innerHTML = head + `<div style= "display:flex; flex-direction: column; justify-content: center; align-items: center; gap: 2rem">` + playerDiv + computerDiv + `</div>` + buttons + result;
 
     /* Body styles */
     document.body.style.fontFamily="'Josefin Sans', sans-serif";
@@ -69,3 +68,19 @@ function displaySection() {
 }
 
 displaySection();
+
+function buttonFuntionality(){
+    let playButton = document.getElementById("playButton");
+    let restartButton = document.getElementById("restartButton");
+    const computerInput = document.getElementById("computerInput");
+
+    playButton.addEventListener("click", function(){
+        gameControl.computerChoice();
+        gameControl.playRound(computerInput.value)
+    });
+
+    restartButton.addEventListener("click", gameControl.restartGame);
+
+}
+
+buttonFuntionality()

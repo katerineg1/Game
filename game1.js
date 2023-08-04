@@ -3,28 +3,45 @@ let computerScore = 0;
 const choices = ["rock", "paper", "scissors"];
 
 function computerChoice() {
-    const computerInput = document.getElementById("computerInput");
-    const randomIndex = Math.floor(Math.random() * choices.length);
+  const computerInput = document.getElementById("computerInput");
+  const randomIndex = Math.floor(Math.random() * choices.length);
 
-    computerInput.value=choices[randomIndex];
+  computerInput.value=choices[randomIndex];
+  return choices[randomIndex];
 }
 
-function playRound(playerSelection, computerSelection) {
-  playerSelection = playerSelection.toLowerCase();
-  computerSelection = computerSelection.toLowerCase();
+function restartGame(){
+  let texto = "";
+  const result = document.getElementById("result");
+  const computerInput = document.getElementById("computerInput");
+
+  result.textContent = texto;
+  computerInput.value = texto;
+}
+
+function playRound(computerSelection) {
+  
+  const result = document.getElementById("result");
+  const select = document.getElementById("playerInput");
+  let index = select.selectedIndex;
+  let options = select.options;
+  let option = options[index];
+  let value = option.value;
+  
+  let playerSelection = value;
 
   if (playerSelection === computerSelection) {
-    return "It's a tie!";
+    result.textContent = "It's a tie!";
   } else if (
     (playerSelection === "rock" && computerSelection === "scissors") ||
     (playerSelection === "paper" && computerSelection === "rock") ||
     (playerSelection === "scissors" && computerSelection === "paper")
   ) {
     playerScore++;
-    return "You win!";
+    result.textContent = "You win!";
   } else {
     computerScore++;
-    return "You lose!";
+    result.textContent = "You lose!";
   }
 }
 
@@ -51,4 +68,4 @@ function game() {
   }
 }
 
-export { playRound, game, computerChoice };
+export { playRound, game, computerChoice, restartGame };
